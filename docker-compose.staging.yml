@@ -1,6 +1,10 @@
 version: '3'
 services:
   core_backend:
+    logging:
+      driver: "file-log-driver"
+      options:
+        fpath: "/docker/core_backend.log"
     container_name: Xplor-core-backend
     build: .
     restart: always
@@ -19,6 +23,10 @@ services:
       - xplor-network
 
   core_mongodb:
+    logging:
+      driver: "file-log-driver"
+      options:
+        fpath: "/docker/core_mongodb.log"
     image: mongo:latest
     container_name: Xplor-mongo-service
     restart: always
