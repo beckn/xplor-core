@@ -38,6 +38,7 @@ export const USER_ERROR_MESSAGES = {
   VERIFY_OTP: 'Error in verifying OTP', // Message for errors during verifying OTP
   RESEND_OTP: 'Error in resending OTP', // Message for errors during resending OTP
   VERIFY_TOKEN: 'Error in verifying token', // Message for errors during verifying token
+  CREATE_USER: 'Error in creating user', // Message for errors during creating user
   CREATE_USER_MPIN: 'Error in creating user mpin', // Message for errors during creating user mpin
   VERIFY_USER_MPIN: 'Error in verifying user mpin', // Message for errors during verifying user mpin
   UPDATE_USER_KYC: 'Error in updating user kyc', // Message for errors during updating user kyc
@@ -45,6 +46,11 @@ export const USER_ERROR_MESSAGES = {
   GET_USER_DETAILS: 'Failed to fetch userDetails', // Message for errors during fetching user details
   ASSIGN_USER_ROLE: 'Error in assigning user role', // Message for errors during assigning user role
   GET_USER_ROLES: 'Error in fetching user roles', // Message for errors during fetching user roles
+  UPDATER_USER_MPIN: 'Error in updating user mpin', // Message for errors during updating user mpin
+  UPDATE_USER_LANGUAGE_PREFERENCE: 'Error in updating user language preference', // Message for errors during updating user language preference
+  CREATE_DEVICE_PREFERENCE: 'Error in creating device preference for device', // Message for errors creating device  preference
+  UPDATE_DEVICE_PREFERENCE: 'Error in updating device preference for device', //  Message for errors updating device  preference
+  GET_DEVICE_PREFERENCE: 'Error in fetching device preference for device', //  Message for errors fetching device  preference
 };
 
 export const EAUTH_ERROR_MESSAGES = {
@@ -53,21 +59,7 @@ export const EAUTH_ERROR_MESSAGES = {
   GET_ACCESS_TOKEN: 'Failed to fetch accessToken', // Message for errors during fetching access token from eAuth
 };
 
-export const FilesErrors = {
-  INTERNAL_ERROR: 'There was an error in completing your request.',
-  FILE_CREATE_ERROR: 'There was an error in completing your request.',
-  FILES_NOT_FOUND: 'Files not found',
-  FILE_NOT_EXIST: 'File does not exist with the fileId!',
-  DELETE_PERMISSION_ERROR: "You don't have the permission to delete this file.",
-  RECOVER_PERMISSION_ERROR: "You don't have the permission to recover this file.",
-  FILE_DELETED_ERROR: 'You cannot view this file as its deleted, it needs to be recovered first.',
-  FILE_EXPIRED_ERROR: "You can't access this document as the file share has expired",
-  SHARE_PERMISSION_ERROR: "You don't have the permission to share this file.",
-  FILE_MAX_TIME_LIMIT_ERROR: 'You cannot request the file for more than 7 days.',
-  REQUEST_NOT_FOUND: 'Request with the requestId not found.',
-  REQUEST_DELETE_PERMISSION_ERROR: 'You cannot delete this share request as you did not make this share request.',
-  INVALID_ACTION: 'Please enter a valid action [ACCEPTED, REJECTED, PENDING]',
-  SHARE_ACTION_PERMISSION_ERROR: 'You cannot respond to this share request as you are not the file owner.',
-  FILE_MISSING_ERROR: 'Please attach a file document.',
-  INVALID_DELETE_ACTION: 'Incorrect action, please enter one of these [DELETE, RECOVER, PERMANENT_DELETE].',
+// Define a constant object for general error messages
+export const DEVICE_ERROR_MESSAGES = {
+  DEVICE_ID_REQUIRED: 'Device id is required', //Device id is required message
 };

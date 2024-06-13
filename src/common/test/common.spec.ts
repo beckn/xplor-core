@@ -2,11 +2,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpModule } from '@nestjs/axios';
 import { APP_GUARD } from '@nestjs/core';
+import { ConfigModule } from '@nestjs/config';
 
 import { CommonModule } from '../common.module';
 import { GetUrl } from '../utils';
 import { UserModule } from '../../modules/user/user.module';
 import { TokenGuard } from '../guard/token.guard';
+import { JwtModule } from '@nestjs/jwt';
 
 // Define a test suite for the CommonModule.
 describe('CommonModule', () => {
@@ -18,7 +20,14 @@ describe('CommonModule', () => {
     // Create a testing module that imports the CommonModule, HttpModule, and UserModule.
     // Also, provide the TokenGuard as a provider and set it as a global guard.
     module = await Test.createTestingModule({
-      imports: [CommonModule, { module: HttpModule, global: true }, UserModule], // Import the module to be tested
+      imports: [
+        CommonModule,
+        HttpModule,
+        ConfigModule.forRoot({ isGlobal: true }),
+        { module: JwtModule, global: true },
+        { module: HttpModule, global: true },
+        UserModule,
+      ], // Import the module to be tested
       providers: [
         TokenGuard,
         {

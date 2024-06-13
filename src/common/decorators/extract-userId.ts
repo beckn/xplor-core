@@ -8,3 +8,8 @@ export const ExtractUserId = createParamDecorator((data: unknown, ctx: Execution
   const userId = (jwt.decode(request.headers.authorization.split(' ')[1]) as any)?.sub || '';
   return userId;
 });
+export const ExtractTargetLanguage = createParamDecorator((data: unknown, ctx: ExecutionContext) => {
+  const request = ctx.switchToHttp().getRequest();
+  const languageCode = (jwt.decode(request.headers.authorization.split(' ')[1]) as any)?.languageCode || '';
+  return languageCode;
+});

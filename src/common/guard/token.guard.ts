@@ -1,5 +1,5 @@
 // Import necessary decorators and classes from NestJS and other libraries.
-import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, BadRequestException } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Reflector } from '@nestjs/core'; // Utility to reflect metadata.
 
@@ -15,7 +15,7 @@ export class TokenGuard implements CanActivate {
 
   // Implement the canActivate method required by the CanActivate interface.
   // This method is called automatically by NestJS to determine if the current request should be handled by the route handler.
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> | any {
     // Check if the route is marked as public using the Reflector. If so, allow unauthenticated access.
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(), // Check the handler (route handler method).
@@ -32,7 +32,7 @@ export class TokenGuard implements CanActivate {
 
     // If there's no token, throw an UnauthorizedException.
     if (!token) {
-      throw new UnauthorizedException(ERROR_MESSAGES.TOKEN_MISSING);
+      throw new BadRequestException(ERROR_MESSAGES.TOKEN_MISSING);
     }
 
     // Validate the token using the UserService.

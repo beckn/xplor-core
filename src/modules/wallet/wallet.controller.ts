@@ -1,16 +1,4 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Patch,
-  Post,
-  Put,
-  Query,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post, Put, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { WalletService } from './wallet.service';
@@ -24,11 +12,9 @@ import {
   UpdateVcQueryRequestDto,
   WalletQueryDto,
   WalletVcQueryDto,
-  CreateFileRequestDto,
 } from './dto';
 import { ExtractUserId } from '../../common/decorators/extract-userId';
 import { ExtractToken } from '../../common/decorators/extract-token.decorator';
-import { FilesErrors } from '../../common/constants/error-message';
 
 @Controller('wallet')
 export class WalletController {
@@ -37,11 +23,7 @@ export class WalletController {
   // Endpoint to upload a file to the wallet
   @Post('file')
   @UseInterceptors(FileInterceptor('file'))
-  async uploadFileToWallet(@UploadedFile() file: Express.Multer.File, @Body() body: CreateFileRequestDto) {
-    if (file == null) {
-      throw new BadRequestException(FilesErrors.FILE_MISSING_ERROR);
-    }
-
+  async uploadFileToWallet(@UploadedFile() file: Express.Multer.File, @Body() body: any) {
     return this.walletService.uploadFile(file, body);
   }
 

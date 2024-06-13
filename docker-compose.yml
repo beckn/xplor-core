@@ -1,6 +1,10 @@
 version: '3'
 services:
   core_backend:
+    logging:
+      driver: "file-log-driver"
+      options:
+        fpath: "/docker/core_backend.log"
     container_name: Xplor-core-backend
     build: .
     restart: always
@@ -11,13 +15,24 @@ services:
       - E_AUTH_URI=${E_AUTH_URI} # Environment variable for the e-auth service URI
       - WALLET_URL=${WALLET_URL} # Environment variable for the wallet service URI
       - USER_SERVICE_URL= ${USER_SERVICE_URL} # Environment variable for the user service URI
+      - GRAFANA_SERVICE_URL= ${GRAFANA_SERVICE_URL} # Environment variable for the grafana service URI
       - ORGANIZATION= ${ORGANIZATION} # Environment variable for the organization name
+      - STG_SERVICE_URL= ${STG_SERVICE_URL}
+      - LLM_SERVICE_URL=${LLM_SERVICE_URL}
+      - OPEN_STREET_URL=${OPEN_STREET_URL}
+      - LANGUAGE_SERVICE_URL=${LANGUAGE_SERVICE_URL}
+      - DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE}
+      - IL_SERVICE_URL=${IL_SERVICE_URL}
     ports:
       - 1067:${PORT} # Maps the container port to the host port
     networks:
       - xplor-network # Connects the service to the xplor-network
 
   core_mongodb:
+    logging:
+      driver: "file-log-driver"
+      options:
+        fpath: "/docker/core_mongodb.log"
     image: mongo:latest
     container_name: Xplor-mongo-service
     restart: always

@@ -15,6 +15,20 @@ export default () => ({
   WALLET_URL: Joi.string().required().default('http://localhost:4000'),
   // Validate the USER_SERVICE_URL environment variable. It must be a string and is required. Default to 'http://localhost:6000' if not provided.
   USER_SERVICE_URL: Joi.string().required().default('http://localhost:6000'),
+  // Validate the STG_SERVICE_URL environment variable. It must be a string and is required. Default to 'http://localhost:3001' if not provided.
+  STG_SERVICE_URL: Joi.string().required().default('http://localhost:3001'),
   // Validate the ORGANIZATION environment variable. It must be a string and is required. Default to 'Xplore' if not provided.
   ORGANIZATION: Joi.string().required().default('Xplore'),
+  // Validate the LANGUAGE_SERVICE_URL environment variable. t must be a string and is required. Default to 'http://localhost:8000' if not provided.
+  LANGUAGE_SERVICE_URL: Joi.string().required().default('http://localhost:8000'),
+  // Validate the OPEN_STREET_URL environment variable. It must be a string and is required. Default to 'https://nominatim.openstreetmap.org' if not provided.
+  OPEN_STREET_URL: Joi.string().required().default('https://nominatim.openstreetmap.org'),
+  // Validate the LLM_SERVICE_URL environment variable. It must be a string and is required. Default to 'http://localhost:9000' if not provided.
+  LLM_SERVICE_URL: Joi.string().required().default('http://localhost:8001'),
+  // Validate the GRAFANA_SERVICE_URL environment variable. It must be a string and is required. Default to 'http://localhost:7000' if not provided.
+  GRAFANA_SERVICE_URL: Joi.string().required().default('http://localhost:7000'),
+  // Validate the DEFAULT_LANGUAGE environment variable. It must be a string and is required. Default to 'en' if not provided.
+  DEFAULT_LANGUAGE: Joi.string().required().default('en'),
+  // Validate the IL_SERVICE_URL environment variable. It must be a string and is required. Default to 'http://localhost:8000' if not provided.
+  IL_SERVICE_URL: Joi.string().required().default('http://localhost:8000'),
 });

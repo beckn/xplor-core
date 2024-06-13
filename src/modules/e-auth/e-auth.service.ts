@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { JwtService } from '@nestjs/jwt';
@@ -32,7 +31,7 @@ export class EAuthService {
         await this.httpService.axiosRef.get(this.getUrl.getUserInfoUrl(createEAuthDto.provider), {
           params: { code: createEAuthDto.code },
         })
-      ).data;
+      )?.data;
       return userDetails;
     } catch (error) {
       this.logger.error(EAUTH_ERROR_MESSAGES.GET_USER_DETAILS, error);
@@ -49,7 +48,7 @@ export class EAuthService {
             Authorization: token,
           },
         })
-      ).data;
+      )?.data;
       return responseData;
     } catch (error) {
       this.logger.error(EAUTH_ERROR_MESSAGES.GET_PROVIDERS, error);
@@ -80,13 +79,10 @@ export class EAuthService {
       this.logger.debug('callBackQueryDto=========', callBackQueryDto);
       // Fetch user details using the provider and code from the callback query DTO
       const userDetails: any = (
-        await this.httpService.axiosRef.get(
-          this.getUrl.getUserInfoUrl(callBackQueryDto.provider ? callBackQueryDto.provider : PROVIDERS.DIGILOCKER),
-          {
-            params: callBackQueryDto,
-          },
-        )
-      ).data;
+        await this.httpService.axiosRef.get(this.getUrl.getUserInfoUrl(callBackQueryDto.provider), {
+          params: callBackQueryDto,
+        })
+      )?.data;
       // Log the fetched user details for debugging purposes
       this.logger.debug('userDetails============', JSON.stringify(userDetails));
       // Check if there's an error in the user details and throw a BadRequestException if so
@@ -96,31 +92,39 @@ export class EAuthService {
 
       // Retrieve the organization configuration
       const organization = this.configService.get('organization');
-
-      // Create a new wallet for the user
-      const createdWalletData = (
-        await this.httpService.axiosRef.post(this.getUrl.getWalletUrl, {
-          userId: userId,
-          fullName: userDetails?.given_name || '',
-          email: userDetails?.email || '',
-          organization: organization,
+      const foundUser = (
+        await this.httpService.axiosRef(this.getUrl.getUserProfileUrl, {
+          headers: { Authorization: `Bearer ${token}` },
         })
-      ).data;
-      this.logger.debug('createdWalletData', JSON.stringify(createdWalletData));
+      )?.data?.data;
+      this.logger.debug('foundUser=======', foundUser);
+      // Create a new wallet for the user
+      let createdWalletData: any;
+      if (foundUser.wallet === null) {
+        createdWalletData = (
+          await this.httpService.axiosRef.post(this.getUrl.getWalletUrl, {
+            userId: userId,
+            fullName: userDetails?.given_name || '',
+            email: userDetails?.email || '',
+            organization: organization,
+          })
+        )?.data;
+        this.logger.debug('createdWalletData', JSON.stringify(createdWalletData));
+      }
 
       // Extract the wallet ID from the created wallet data
-      const walletId = createdWalletData?.data?._id;
+      const walletId = createdWalletData?.data?._id || foundUser?.wallet;
 
       // Split the given name into first and last names
       const userName = userDetails.given_name?.split(' ');
       // Prepare the KYC user details for updating
       const kycUserDetails: ICreateKycDto = {
-        lastName: userName[userName.length - 1], // Assuming given_name is the last name
+        lastName: userName.length === 1 ? '' : userName[userName.length - 1], // Assuming given_name is the last name
         firstName: userName[0], // Assuming given_name is the first name
         email: userDetails.email || '',
-        dob: userDetails.birthdate || '',
         address: JSON.stringify(userDetails.address) || '', // Using address if available, otherwise an empty string
         gender: userDetails.gender || '', // Using gender if available, otherwise an empty string
+        dob: userDetails.birthdate || '',
         provider: {
           id: userDetails.user_sso_id, // Using user_sso_id as the provider id
           name: PROVIDERS.DIGILOCKER, // Placeholder for provider name, as it's not present in IBasicUserDetails

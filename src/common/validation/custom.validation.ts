@@ -1,9 +1,7 @@
-// Custom validation pipe to validate DTOs using class-validator and class-transformer.
-// This pipe transforms plain JavaScript objects to class instances and validates them.
+// Import necessary decorators and functions from NestJS and class-validator/class-transformer libraries.
 import { ArgumentMetadata, BadRequestException, HttpStatus, Injectable, PipeTransform } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
-import { ValidationMessage } from '../constants/validation-message';
 
 import { CustomMessage } from '../enums/message';
 
@@ -24,7 +22,7 @@ export class CustomValidationPipe implements PipeTransform<any> {
     const errors = await validate(object);
     // If there are validation errors, throw a BadRequestException with the formatted errors.
     if (errors.length > 0) {
-      throw new BadRequestException(this.formatErrors(errors), ValidationMessage.failed);
+      throw new BadRequestException(this.formatErrors(errors), CustomMessage.VERIFICATION_FAILED);
     }
 
     // If validation passes, return the value.
@@ -40,10 +38,29 @@ export class CustomValidationPipe implements PipeTransform<any> {
 
   // Helper method to format validation errors into a more readable format.
   private formatErrors(errors: any[]) {
-    const formattedErrors = errors.reduce((_acc, err) => {
-      const firstConstraintKey = Object.keys(err.constraints)[0];
-      return err.constraints[firstConstraintKey];
+    // Check if errors is an array and has elements
+    if (!Array.isArray(errors) || errors.length === 0) {
+      // Return a default error message or an empty object if there are no errors
+      return { message: 'No validation errors found', statusCode: HttpStatus.BAD_REQUEST };
+    }
+
+    const formattedErrors = errors.reduce((acc, err) => {
+      // Check if the error has nested children
+      if (err.children && err.children.length > 0) {
+        // Recursively format nested errors and merge them into the accumulator
+        const nestedErrors = this.formatErrors(err.children);
+        // Merge nested errors directly, ensuring they are not nested within each other
+        return { ...acc, ...nestedErrors.message };
+      } else {
+        // Format the error message
+        const firstConstraintKey = Object.keys(err.constraints)[0];
+        const errorMessage = err.constraints[firstConstraintKey];
+        // Use the property path to correctly identify and format nested errors
+        const propertyPath = err.property;
+        return { ...acc, [propertyPath]: errorMessage };
+      }
     }, {});
+
     // Return the formatted errors along with the HTTP status code for a bad request.
     return { message: formattedErrors, statusCode: HttpStatus.BAD_REQUEST };
   }

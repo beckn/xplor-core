@@ -334,6 +334,7 @@ describe('WalletController', () => {
       const mockBody: ShareVcRequestDto = {
         certificateType: faker.lorem.word(), // Generate a random certificate type
         remarks: faker.lorem.word(), // Generate a random remark
+        sharedWithEntity: faker.lorem.word(),
         restrictions: {
           expiresIn: faker.number.int({ min: 1, max: 10000 }), // Generate a random expiration time
           viewOnce: faker.datatype.boolean(), // Generate a random boolean for viewOnce restriction
@@ -390,6 +391,7 @@ describe('WalletController', () => {
       const mockBody: ShareVcRequestDto = {
         certificateType: faker.lorem.word(), // Generate a random certificate type
         remarks: faker.lorem.word(), // Generate a random remark
+        sharedWithEntity: faker.lorem.word(),
         restrictions: {
           expiresIn: faker.number.int({ min: 1, max: 10000 }), // Generate a random expiration time
           viewOnce: faker.datatype.boolean(), // Generate a random boolean for viewOnce restriction

@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+
 import { GetUrl } from '../../common/utils';
 import {
   CreateWalletDto,
@@ -29,7 +30,7 @@ export class WalletService {
       // Make a POST request to create a wallet
       const walletData = (
         await this.httpService.axiosRef.post(this.getUrl.getWalletUrl, { userId: userId, ...createWalletDto })
-      ).data;
+      )?.data;
       const walletId = walletData?.data?._id;
       const updatedUser = await this.httpService.axiosRef.patch(
         this.getUrl.getUserProfileUrl,
@@ -52,7 +53,7 @@ export class WalletService {
         await this.httpService.axiosRef.delete(this.getUrl.getWalletUrl, {
           params: { userId: userId, ...walletQueryDto },
         })
-      ).data;
+      )?.data;
       return walletData;
     } catch (error) {
       // Log the error and return the error response
@@ -67,7 +68,7 @@ export class WalletService {
       // Make a GET request to fetch wallet details
       const walletData = (
         await this.httpService.axiosRef.get(this.getUrl.getWalletUrl, { params: { userId: userId, ...walletQueryDto } })
-      ).data;
+      )?.data;
       return walletData;
     } catch (error) {
       // Log the error and return the error response
@@ -94,7 +95,7 @@ export class WalletService {
       // Make a GET request to fetch wallet VCs
       const walletData = (
         await this.httpService.axiosRef.get(this.getUrl.getWaletSingleVcUrl, { params: walletVcQueryDto })
-      ).data;
+      )?.data;
       return walletData;
     } catch (error) {
       // Log the error and return the error response
@@ -108,7 +109,7 @@ export class WalletService {
       // Make a GET request to fetch wallet VCs
       const walletData = (
         await this.httpService.axiosRef.delete(this.getUrl.getWalletVcUrl, { params: walletVcQueryDto })
-      ).data;
+      )?.data;
       return walletData;
     } catch (error) {
       // Log the error and return the error response
@@ -143,7 +144,7 @@ export class WalletService {
             'Content-Type': 'multipart/form-data',
           },
         })
-      ).data;
+      )?.data;
 
       return response;
     } catch (error) {
@@ -170,7 +171,7 @@ export class WalletService {
       // Make a PATCH request to share a VC
       const vcData = (
         await this.httpService.axiosRef.patch(this.getUrl.updateSharedVcUrl, body, { params: queryParams })
-      ).data;
+      )?.data;
       return vcData;
     } catch (error) {
       // Log the error and throw it
@@ -184,7 +185,7 @@ export class WalletService {
       // Make a PATCH request to share a VC
       const vcData = (
         await this.httpService.axiosRef.patch(this.getUrl.updateSharedVcStatusUrl, {}, { params: queryParams })
-      ).data;
+      )?.data;
       return vcData;
     } catch (error) {
       // Log the error and throw it
@@ -200,7 +201,7 @@ export class WalletService {
         await this.httpService.axiosRef.get(this.getUrl.getVcSharedRequestsListUrl, {
           params: queries,
         })
-      ).data;
+      )?.data;
       return vcData;
     } catch (error) {
       // Log the error and throw it

@@ -1,12 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
+import { HttpService } from '@nestjs/axios';
 import helmet from 'helmet';
-// import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
+import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { CustomValidationPipe } from './common/validation/custom.validation';
-// import { ValidationPipe } from '@nestjs/common';
 
+// import { CustomValidationPipe } from './common/validation/custom.validation';
+// import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 import { AppModule } from './modules/app/app.module';
+import { CatchExceptionsTranslator } from './common/exception-filter/catch-block-exception';
+import { TranslateService } from './common/utils/translate/translate.service';
 
 async function bootstrap() {
   // Create a Nest application instance
@@ -19,10 +22,14 @@ async function bootstrap() {
   // app.useGlobalFilters(new GlobalExceptionFilter());
 
   // Uncomment to use a custom validation pipe
-  app.useGlobalPipes(new CustomValidationPipe());
+  // app.useGlobalPipes(new CustomValidationPipe());
 
   // Use the built-in ValidationPipe for class-based validation
-  // app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+  app.useGlobalFilters(
+    new CatchExceptionsTranslator(new ConfigService(), new TranslateService(new ConfigService(), new HttpService())),
+  );
 
   // Retrieve the ConfigService to access environment variables
   const configService = app.get(ConfigService);

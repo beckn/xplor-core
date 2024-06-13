@@ -63,10 +63,10 @@ export interface ICreateKycDto {
   address: string;
 
   // The gender of the user
-  dob: string;
-
-  // The gender of the user
   gender: string;
+
+  // The dob of the user
+  dob: string;
 
   // The ID of the wallet
   walletId?: string;

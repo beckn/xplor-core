@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-extra-semi': 'off',
     'no-extra-semi': 'off',
+    "no-console":"off",
     'no-console': 'warn',
     'padding-line-between-statements': [
       'error',

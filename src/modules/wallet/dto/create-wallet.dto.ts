@@ -17,4 +17,10 @@ export class CreateWalletDto {
   @IsString()
   @IsNotEmpty()
   organization: string;
+
+  constructor(fullName: string, email: string, organization: string) {
+    this.fullName = fullName;
+    this.email = email;
+    this.organization = organization;
+  }
 }
