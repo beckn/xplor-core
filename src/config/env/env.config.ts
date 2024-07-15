@@ -1,4 +1,5 @@
 // Export a function that returns a configuration object.
+
 // This configuration object is used to set up the application environment.
 export default () => ({
   // Parse the PORT environment variable to an integer. This is the port on which the application will run.
@@ -27,4 +28,12 @@ export default () => ({
   serverDefaultLanguage: process.env.DEFAULT_LANGUAGE,
   // Use the IL_SERVICE_URL environment variable to set the URI for the IL service.
   ilServiceUrl: process.env.IL_SERVICE_URL,
+  // Use the GEOCODE_SERVICE_URL environment variable to set the URI for the GeoCode service.
+  geoCodeServiceUrl: process.env.GEOCODE_SERVICE_URL,
+  // Use the GEOCODE_SERVICE_API_KEY environment variable to set the Api key  for the GeoCode service.
+  geoCodeServiceApiKey: process.env.GEOCODE_SERVICE_API_KEY,
+  // Use the PAYMENT_GATEWAY_SERVICE_URL environment variable to set the URI for the payment gateway service.
+  paymentGatewayServiceUrl: process.env.PAYMENT_GATEWAY_SERVICE_URL,
+  // Use the GCL_BASE_URL environment variable to set the URI for the GCL service.
+  gclBaseUrl: process.env.GCL_BASE_URL,
 });

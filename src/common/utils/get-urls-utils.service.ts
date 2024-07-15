@@ -17,6 +17,9 @@ export class GetUrl extends ConfigService {
   openStreetMapApiUrl = this.get('openStreetMapApiUrl');
   stgServiceUrl = this.get('stgServiceUrl');
   ilServiceUrl = this.get('ilServiceUrl');
+  geoCodeServiceUrl = this.get('geoCodeServiceUrl');
+  paymentGatewayServiceUrl = this.get('paymentGatewayServiceUrl');
+  gclServiceUrl = this.get('gclBaseUrl');
 
   // URL to get list of providers from eAuth service.
   getProvidersUrl = this.eAuthUrl + Endpoints.eAuthProvidersUrl;
@@ -43,6 +46,9 @@ export class GetUrl extends ConfigService {
 
   // URL for uploading wallet files to the VC wallet service.
   getVcWalletFileUploadUrl = this.walletUrl + Endpoints.walletVcWalletFileUploadUrl;
+
+  // URL for uploading wallet certificate to the VC wallet service.
+  getVcWalletCertificateUploadUrl = this.walletUrl + Endpoints.walletVcWalletCertificateUploadUrl;
 
   // URL to share a VC with another user.
   getShareVcUrl = this.walletUrl + Endpoints.walletVcShareUrl;
@@ -161,9 +167,36 @@ export class GetUrl extends ConfigService {
   // Constructing the URL for checking the status of operations in the IL service.
   getIlOnStatusUrl = this.ilServiceUrl + Endpoints.ilOnStatusUrl;
 
+  getIlOnRateUrl = this.ilServiceUrl + Endpoints.ilOnRateUrl;
+
+  getIlOnSupportUrl = this.ilServiceUrl + Endpoints.ilOnSupportUrl;
+
+  getIlOnTrackUrl = this.ilServiceUrl + Endpoints.ilOnTrackUrl;
+
+  getIlOnUpdateUrl = this.ilServiceUrl + Endpoints.ilOnUpdateUrl;
+
+  getIlOnCancelUrl = this.ilServiceUrl + Endpoints.ilOnCancelUrl;
+
   // Constructing the URL for getting domains in user service.
   getDomainsUrl = this.userServiceUrl + Endpoints.getDomainsUrl;
 
   // Constructing the URL for getting the  categories in user service.
   getCategoriesUrl = this.userServiceUrl + Endpoints.getCategoriesUrl;
+
+  // Constructing the URL for getting the CountryAndState form  geoCode service.
+  getGeoCodeServiceUrl = this.geoCodeServiceUrl + Endpoints.getReverseGeoCodeUrl;
+
+  getPaymentLink = this.paymentGatewayServiceUrl + Endpoints.getPaymentLinkUrl;
+  verifyPaymentUrl = this.paymentGatewayServiceUrl + Endpoints.verifyPayment;
+
+  getGclSearchUrl = this.gclServiceUrl + Endpoints.getGclSearchUrl;
+  getGclSelectUrl = this.gclServiceUrl + Endpoints.getGclSelectUrl;
+  getGclInitUrl = this.gclServiceUrl + Endpoints.getGclInitUrl;
+  getGclConfirmUrl = this.gclServiceUrl + Endpoints.getGclConfirmUrl;
+  getGclStatusUrl = this.gclServiceUrl + Endpoints.getGclStatusUrl;
+  getGclRateUrl = this.gclServiceUrl + Endpoints.getGclRateUrl;
+  getGclCancelUrl = this.gclServiceUrl + Endpoints.getGclCancelUrl;
+  getGclUpdateUrl = this.gclServiceUrl + Endpoints.getGclUpdateUrl;
+  getGclSupportUrl = this.gclServiceUrl + Endpoints.getGclSupportUrl;
+  getGclTrackUrl = this.gclServiceUrl + Endpoints.getGclTrackUrl;
 }

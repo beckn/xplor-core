@@ -87,7 +87,6 @@ export class AiMlService {
       };
       return (await this.httpService.axiosRef.post(this.getUrl.getTranslateLanguageUrl, requestBody))?.data;
     } catch (error) {
-      this.logger.error(error?.response?.data);
       throw error?.response?.data;
     }
   }

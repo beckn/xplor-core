@@ -2,9 +2,9 @@ version: '3'
 services:
   core_backend:
     logging:
-      driver: "file-log-driver"
+      driver: 'file-log-driver'
       options:
-        fpath: "/docker/core_backend.log"
+        fpath: '/docker/core_backend.log'
     container_name: Xplor-core-backend
     build: .
     restart: always
@@ -23,6 +23,10 @@ services:
       - LANGUAGE_SERVICE_URL=${LANGUAGE_SERVICE_URL}
       - DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE}
       - IL_SERVICE_URL=${IL_SERVICE_URL}
+      - GEOCODE_SERVICE_URL=${GEOCODE_SERVICE_URL}
+      - GEOCODE_SERVICE_API_KEY=${GEOCODE_SERVICE_API_KEY}
+      - PAYMENT_GATEWAY_SERVICE_URL=${PAYMENT_GATEWAY_SERVICE_URL}
+      - GCL_BASE_URL=${GCL_BASE_URL}
     ports:
       - 1067:${PORT} # Maps the container port to the host port
     networks:
@@ -30,9 +34,9 @@ services:
 
   core_mongodb:
     logging:
-      driver: "file-log-driver"
+      driver: 'file-log-driver'
       options:
-        fpath: "/docker/core_mongodb.log"
+        fpath: '/docker/core_mongodb.log'
     image: mongo:latest
     container_name: Xplor-mongo-service
     restart: always

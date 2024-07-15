@@ -11,6 +11,8 @@ import { GetAddressService } from './utils/get-address.service';
 import { SanitizeService } from './utils';
 import { TranslateService } from './utils/translate/translate.service';
 import { AxiosService } from './axios/axios.service';
+import { SecondaryCountryStateDataAPI } from './strategies/fallback-api.strategy';
+import { PrimaryCountryStateDataAPI } from './strategies/get-address-with-latlong.strategy';
 
 // Decorate the class with @Global() to make it a global module.
 @Global()
@@ -18,7 +20,16 @@ import { AxiosService } from './axios/axios.service';
   // Import the UserModule to include user-related functionalities.
   imports: [UserModule],
   // Provide the GetUrl and TokenGuard services.
-  providers: [GetUrl, TokenGuard, GetAddressService, SanitizeService, TranslateService, AxiosService],
+  providers: [
+    GetUrl,
+    TokenGuard,
+    GetAddressService,
+    SanitizeService,
+    TranslateService,
+    AxiosService,
+    PrimaryCountryStateDataAPI,
+    SecondaryCountryStateDataAPI,
+  ],
   // Export the GetUrl and TokenGuard services to make them available for injection in other modules.
   exports: [GetUrl, TokenGuard, GetAddressService, SanitizeService, TranslateService, AxiosService],
 })

@@ -11,6 +11,7 @@ export const Endpoints = {
   walletUserWalletFilesUrl: '/api/v1/wallet/files',
   walletWalletUrl: '/api/v1/wallet',
   walletVcWalletFileUploadUrl: '/api/v1/wallet/files',
+  walletVcWalletCertificateUploadUrl: '/api/v1/wallet/files/certificate',
   getWalletVcUrl: '/api/v1/wallet/vc',
   getWalletSingleVcUrl: '/api/v1/wallet/vc/single',
   walletVcShareUrl: '/api/v1/wallet/vc/share',
@@ -72,4 +73,26 @@ export const Endpoints = {
   ilOnInitUrl: '/api/v1/stg/on_init',
   ilOnConfirmUrl: '/api/v1/stg/on_confirm',
   ilOnStatusUrl: '/api/v1/stg/on_status',
+  ilOnRateUrl: '/api/v1/stg/on_rating',
+  ilOnSupportUrl: '/api/v1/stg/on_support',
+  ilOnTrackUrl: '/api/v1/stg/on_track',
+  ilOnUpdateUrl: '/api/v1/stg/on_update',
+  ilOnCancelUrl: '/api/v1/stg/on_cancel',
+
+  getReverseGeoCodeUrl: '/reverse',
+  getPaymentLinkUrl: '/api/v1/payment/create-link?gateWay=razorpay',
+  verifyPayment: '/api/v1/payment/verify-payment?gateWay=razorpay',
+
+  // Gcl Service url
+
+  getGclSelectUrl: '/select',
+  getGclInitUrl: '/init',
+  getGclConfirmUrl: '/confirm',
+  getGclStatusUrl: '/status',
+  getGclRateUrl: '/rating',
+  getGclCancelUrl: '/cancel',
+  getGclUpdateUrl: '/update',
+  getGclSupportUrl: '/support',
+  getGclTrackUrl: '/track',
+  getGclSearchUrl: '/search',
 };

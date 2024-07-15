@@ -63,3 +63,7 @@ export const EAUTH_ERROR_MESSAGES = {
 export const DEVICE_ERROR_MESSAGES = {
   DEVICE_ID_REQUIRED: 'Device id is required', //Device id is required message
 };
+
+export const ADDRESS_SERVICE_ERROR = {
+  GET_COUNTRY_STATE_ERROR: 'Failed to fetch country and state data from any API',
+};

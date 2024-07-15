@@ -1,3 +1,3 @@
 import { CommonRequestDto } from './common-request.dto';
 
-export class InitRequestDto extends CommonRequestDto {}
+export class SelectRequestDto extends CommonRequestDto {}
