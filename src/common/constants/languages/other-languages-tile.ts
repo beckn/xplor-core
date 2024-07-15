@@ -21,4 +21,11 @@ export const StaticLanguagesList = [
     symbol: '¶',
     native_language: 'Português',
   },
+  {
+    language: 'English',
+    languageCode: 'en',
+    percentage: '0%',
+    symbol: 'A',
+    native_language: 'English',
+  },
 ];

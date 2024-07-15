@@ -31,4 +31,12 @@ export default () => ({
   DEFAULT_LANGUAGE: Joi.string().required().default('en'),
   // Validate the IL_SERVICE_URL environment variable. It must be a string and is required. Default to 'http://localhost:8000' if not provided.
   IL_SERVICE_URL: Joi.string().required().default('http://localhost:8000'),
+  // Validate the GEOCODE_SERVICE_URL environment variable. It must be a string and is required. Default to 'http://localhost:8000' if not provided.
+  GEOCODE_SERVICE_URL: Joi.string().required().default('http://localhost:8000'),
+  // Validate the GEOCODE_SERVICE_API_KEY environment variable. It must be a string and is required. Default to 'http://localhost:8000' if not provided.
+  GEOCODE_SERVICE_API_KEY: Joi.string().required().default('AIzaSyCk7q8fC5K5HcJy5wOcKX5fKwL0pVZ8PwE'),
+  // Validate the PAYMENT_GATEWAY_SERVICE_URL environment variable. It must be a string and is required. Default to 'http://localhost:8005' if not provided.
+  PAYMENT_GATEWAY_SERVICE_URL: Joi.string().required().default('http://localhost:8005'),
+  // Validate the GCL_BASE_URL environment variable. It must be a string and is required. Default to 'http://localhost:3002' if not provided.
+  GCL_BASE_URL: Joi.string().required().default('http://localhost:3002'),
 });

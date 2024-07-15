@@ -17,6 +17,7 @@ import { TokenGuard } from '../../common/guard/token.guard';
 import { AiMlModule } from '../ai-ml/ai-ml.module';
 import { StgModule } from '../stg/stg.module';
 import { JwtModule } from '@nestjs/jwt';
+import { PaymentGatewayModule } from '../payment-gateway/payment-gateway.module';
 
 /**
  * AppModule is the root module of the application.
@@ -39,6 +40,7 @@ import { JwtModule } from '@nestjs/jwt';
     WalletModule,
     AiMlModule,
     StgModule,
+    PaymentGatewayModule,
     { module: HttpModule, global: true },
   ],
   controllers: [AppController],

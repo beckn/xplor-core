@@ -1,12 +1,18 @@
-import { StgService } from './services/stg.service';
-import { SearchRequestDto } from './dto/search-request.dto';
 import { Body, Controller, Get, Injectable, Logger, Post, Req, Res } from '@nestjs/common';
 import { Public } from '../../common/decorators/public.decorators';
+
 import { SseConnectedMessage } from '../../common/constants/response-message';
-import { SelectRequestDto } from './dto/select-request.dto';
 import { InitRequestDto } from './dto/init-request.dto';
 import { ConfirmRequestDto } from './dto/confirm-request.dto';
 import { StatusRequestDto } from './dto/status-request.dto';
+import { SelectRequestDto } from './dto/select-request-dto';
+import { StgService } from './services/stg.service';
+import { SearchRequestDto } from './dto/search-request.dto';
+import { RateRequestDto } from './dto/rate-request.dto';
+import { CancelRequestDto } from './dto/cancel-request.dto';
+import { UpdateRequestDto } from './dto/update-request.dto';
+import { SupportRequestDto } from './dto/support-request.dto';
+import { TrackRequestDto } from './dto/track-request.dto';
 
 @Controller('stg')
 @Injectable()
@@ -23,6 +29,7 @@ export class StgController {
   @Public()
   @Post('search')
   search(@Body() searchRequestDto: SearchRequestDto) {
+    this.logger.log('searchRequestDto: ', searchRequestDto);
     return this.stgService.search(searchRequestDto);
   }
 
@@ -53,10 +60,10 @@ export class StgController {
 
   @Public()
   @Post('on_search')
-  onSearch(@Body() searchResponse: any) {
+  onSearch(@Body() onSearchResponse: any) {
     // Bind the context of sendDataToClients to this instance
-    this.logger.log('OnSearch00', searchResponse);
-    return this.stgService.onSearch(searchResponse, this.connectedClients, this.sendDataToClients);
+    this.logger.log('onSearchResponse: ', onSearchResponse);
+    return this.stgService.onSearch(onSearchResponse);
   }
 
   @Public()
@@ -86,6 +93,56 @@ export class StgController {
     // Bind the context of sendDataToClients to this instance
     return this.stgService.onStatus(searchResponse);
   }
+
+  @Post('rating')
+  rate(@Body() rateRequestDto: RateRequestDto) {
+    return this.stgService.rate(rateRequestDto);
+  }
+
+  @Post('cancel')
+  cancel(@Body() cancelRequestDto: CancelRequestDto) {
+    return this.stgService.cancel(cancelRequestDto);
+  }
+
+  @Post('update')
+  update(@Body() updateRequestDto: UpdateRequestDto) {
+    return this.stgService.update(updateRequestDto);
+  }
+
+  @Post('support')
+  support(@Body() supportRequestDto: SupportRequestDto) {
+    return this.stgService.support(supportRequestDto);
+  }
+
+  @Post('track')
+  track(@Body() trackRequestDto: TrackRequestDto) {
+    return this.stgService.track(trackRequestDto);
+  }
+
+  @Post('on_rating')
+  onRate(@Body() onRatingResponse: any) {
+    return this.stgService.onRate(onRatingResponse);
+  }
+
+  // @Post('on_cancel')
+  // onCancel(@Body() onCancelResponse: any) {
+  //   return this.stgService.onCancel(onCancelResponse, this.connectedClients, this.sendDataToClients);
+  // }
+
+  // @Post('on_update')
+  // onUpdate(@Body() onUpdateResponse: any) {
+  //   return this.stgService.onUpdate(onUpdateResponse, this.connectedClients, this.sendDataToClients);
+  // }
+
+  // @Post('on_track')
+  // onTrack(@Body() onTrackResponse: any) {
+  //   return this.stgService.onTrack(onTrackResponse, this.connectedClients, this.sendDataToClients);
+  // }
+
+  // @Post('on_support')
+  // onSupport(@Body() onSupportResponse: any) {
+  //   return this.stgService.onTrack(onSupportResponse, this.connectedClients, this.sendDataToClients);
+  // }
 
   @Public()
   @Get('sse')
