@@ -29,7 +29,7 @@ services:
       - GCL_BASE_URL=${GCL_BASE_URL}
 
     ports:
-      - 1067:${PORT}
+      - 1085:${PORT}
     networks:
       - xplor-network
 
