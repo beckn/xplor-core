@@ -17,6 +17,17 @@ services:
       - USER_SERVICE_URL= ${USER_SERVICE_URL} # Environment variable for the user service URI
       - GRAFANA_SERVICE_URL= ${GRAFANA_SERVICE_URL} # Environment variable for the grafana service URI
       - ORGANIZATION= ${ORGANIZATION} # Environment variable for the organization name
+      - STG_SERVICE_URL= ${STG_SERVICE_URL}
+      - LLM_SERVICE_URL=${LLM_SERVICE_URL}
+      - OPEN_STREET_URL=${OPEN_STREET_URL}
+      - LANGUAGE_SERVICE_URL=${LANGUAGE_SERVICE_URL}
+      - DEFAULT_LANGUAGE=${DEFAULT_LANGUAGE}
+      - IL_SERVICE_URL=${IL_SERVICE_URL}
+      - GEOCODE_SERVICE_URL=${GEOCODE_SERVICE_URL}
+      - GEOCODE_SERVICE_API_KEY=${GEOCODE_SERVICE_API_KEY}
+      - PAYMENT_GATEWAY_SERVICE_URL=${PAYMENT_GATEWAY_SERVICE_URL}
+      - GCL_BASE_URL=${GCL_BASE_URL}
+
     ports:
       - 1067:${PORT}
     networks:
