@@ -1,0 +1,45 @@
+version: '3'
+services:
+  core_backend:
+    logging:
+      driver: "file-log-driver"
+      options:
+        fpath: "/docker/core_backend.log"
+    container_name: Xplor-core-backend
+    build: .
+    restart: always
+    environment:
+      - PORT=${PORT} # Environment variable for the application port
+      - NODE_ENV=${NODE_ENV} # Environment variable for the Node.js environment
+      - DATABASE_URL=${DATABASE_URL} # Environment variable for the database connection URL
+      - E_AUTH_URI=${E_AUTH_URI} # Environment variable for the e-auth service URI
+      - WALLET_URL=${WALLET_URL} # Environment variable for the wallet service URI
+      - USER_SERVICE_URL= ${USER_SERVICE_URL} # Environment variable for the user service URI
+      - GRAFANA_SERVICE_URL= ${GRAFANA_SERVICE_URL} # Environment variable for the grafana service URI
+      - ORGANIZATION= ${ORGANIZATION} # Environment variable for the organization name
+    ports:
+      - 1067:${PORT}
+    networks:
+      - xplor-network
+
+  core_mongodb:
+    logging:
+      driver: "file-log-driver"
+      options:
+        fpath: "/docker/core_mongodb.log"
+    image: mongo:latest
+    container_name: Xplor-mongo-service
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+    # ports:
+    #   - 27017:27017
+    networks:
+      - xplor-network
+
+networks:
+  xplor-network:
+    external: true
+
+volumes:
+  mongo-data:
